@@ -7,8 +7,8 @@
 
   $responseObj = new stdClass();
 
-if (isset($json['emailId']) && isset($json['password'])){
-  $email = $json['emailId'];
+if (isset($json['email_id']) && isset($json['password'])){
+  $email = $json['email_id'];
   $password = $json['password'];
     try {
         $db = new PDO('mysql:host=localhost; dbname=capstone;', 'Harsh', 'Harsh'); 
@@ -20,22 +20,20 @@ if (isset($json['emailId']) && isset($json['password'])){
         
         $user = $sql->fetch(PDO::FETCH_ASSOC);
 
-        if (!isset($user['Id'])){
+        if (!isset($user['id'])){
             //if not, create a new user record and save it
             $message = 'Email id you have entered doesn\'t exist please register first.';
         } else {
             if (password_verify($password, $user['password'])){
                 $success = 1;
                 $responseObj->data = new stdClass();
-                $responseObj->data->id = $user['Id'];
-                $responseObj->data->firstName = $user['first_name'];
-                $responseObj->data->lastName = $user['last_name'];
-                $responseObj->data->emailId = $user['email_id'];
-                $responseObj->data->addressLine_1 = $user['addressLine_1'];
-                $responseObj->data->addressLine_2 = $user['addressLine_2'];
-                $responseObj->data->city = $user['city'];
-                $responseObj->data->state = $user['state'];
-                $responseObj->data->zipCode = $user['zipCode'];
+                $responseObj->data->id = $user['id'];
+                $responseObj->data->first_name = $user['first_name'];
+                $responseObj->data->last_name = $user['last_name'];
+                $responseObj->data->email_id = $user['email_id'];
+                $responseObj->data->user_type = $user['user_type'];
+                $responseObj->data->vendor_name = $user['vendor_name'];
+                $responseObj->data->phone_no = $user['phone_no'];
                 $message = 'Login successfull.';
             } else {
                 $message = 'Password you have entered is incorrect.';
