@@ -55,12 +55,13 @@ if (isset($json['id']) && isset($json['email_id'])){
                     $message = 'Password you have entered is incorrect.';                                
                 }    
             } else {
-                if($json['user_type'] = '0'){
+                if($json['user_type'] == '0'){
                     $cmd = 'UPDATE user_details SET first_name = :firstName, last_name = :lastName, phone_no = :phoneNo WHERE id = :userId';
                     $sql = $db->prepare($cmd);
                     $sql->bindValue(':firstName', $firstName);
                     $sql->bindValue(':lastName', $lastName);
-                    $sql->bindValue(':phoneNo', $phoneNo);
+                    $sql->bindValue(':phoneNo', 
+                    $phoneNo);
                     $sql->bindValue(':userId', $userId);
                     $sql->execute();
                 } else {
