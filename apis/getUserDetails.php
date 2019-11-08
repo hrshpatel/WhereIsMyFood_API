@@ -40,7 +40,7 @@
             
             
                 $addressDeatils = $sql->fetchAll();
-                $myObj->data->addressList = array();
+                $responseObj->data->addressList = array();
                 foreach($addressDeatils as $addressDetail){
                     $success = 1;
                     $ad = new stdClass();
@@ -53,7 +53,7 @@
                     $ad->zipcode = $addressDetail['zipcode'];
                     $ad->name = $addressDetail['name'];
                     $ad->phone_no = $addressDetail['phone_no'];
-                    array_push($myObj->data->addressList, $ad);
+                    array_push($responseObj->data->addressList, $ad);
                 }
         }
     
