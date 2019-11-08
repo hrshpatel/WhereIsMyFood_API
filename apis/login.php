@@ -1,3 +1,6 @@
+<!-- GRANT ALL PRIVILEGES ON *.* TO 'Harsh'@'localhost' IDENTIFIED BY PASSWORD '*976DE48059F58F74641086075BEA723E4818E1F5' WITH GRANT OPTION;
+
+GRANT ALL PRIVILEGES ON `e_commerce_db`.* TO 'Harsh'@'localhost'; -->
 <?php
 
   $postData = trim(file_get_contents('php://input'));
