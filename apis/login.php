@@ -27,7 +27,7 @@ if (isset($json['email_id']) && isset($json['password'])){
             if (password_verify($password, $user['password'])){
                 $success = 1;
                 $responseObj->data = new stdClass();
-                $responseObj->data->id = $user['id'];
+                $responseObj->data->user_id = $user['id'];
                 $responseObj->data->first_name = $user['first_name'];
                 $responseObj->data->last_name = $user['last_name'];
                 $responseObj->data->email_id = $user['email_id'];

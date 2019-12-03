@@ -7,8 +7,8 @@
 
   $myObj = new stdClass();
 
-if (isset($json['id']) && isset($json['email_id'])){
-    $userId = $json['id'];
+if (isset($json['user_id']) && isset($json['email_id'])){
+    $userId = $json['user_id'];
     $emailId = $json['email_id'];
     $firstName = $json['first_name'];
     $lastName = $json['last_name'];

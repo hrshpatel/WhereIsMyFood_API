@@ -34,6 +34,22 @@
                 $sub_details->sub_description = $sub['sub_description'];
                 $sub_details->price = $sub['price'];
 
+                $sqlStatement = 'SELECT AVG(ratings) AS ratings FROM reviews WHERE sub_id = :sub_id';
+                $sql = $db->prepare($sqlStatement);
+                $sql->bindValue(':sub_id', $sub['sub_id']);
+                $sql->execute();
+    
+                $sub_rating = $sql->fetch(PDO::FETCH_ASSOC);
+                $sub_details->ratings = round($sub_rating['ratings'], 2);
+
+                $sqlStatement = 'SELECT COUNT(review_id) AS review_count FROM reviews WHERE sub_id = :sub_id';
+                $sql = $db->prepare($sqlStatement);
+                $sql->bindValue(':sub_id', $sub['sub_id']);
+                $sql->execute();
+    
+                $sub_count = $sql->fetch(PDO::FETCH_ASSOC);
+                $sub_details->review_count = $sub_count['review_count'];
+
                 $sqlStatement_2 = 'SELECT * FROM sub_daily_details where sub_id = :sub_id';
 
                 $sql = $db->prepare($sqlStatement_2);
@@ -100,6 +116,22 @@
                 $sub_details->vendor_name = $sub['vendor_name'];
                 $sub_details->sub_description = $sub['sub_description'];
                 $sub_details->price = $sub['price'];
+
+                $sqlStatement = 'SELECT AVG(ratings) AS ratings FROM reviews WHERE sub_id = :sub_id';
+                $sql = $db->prepare($sqlStatement);
+                $sql->bindValue(':sub_id', $sub['sub_id']);
+                $sql->execute();
+    
+                $sub_rating = $sql->fetch(PDO::FETCH_ASSOC);
+                $sub_details->ratings = round($sub_rating['ratings'], 2);
+
+                $sqlStatement = 'SELECT COUNT(review_id) AS review_count FROM reviews WHERE sub_id = :sub_id';
+                $sql = $db->prepare($sqlStatement);
+                $sql->bindValue(':sub_id', $sub['sub_id']);
+                $sql->execute();
+    
+                $sub_count = $sql->fetch(PDO::FETCH_ASSOC);
+                $sub_details->review_count = $sub_count['review_count'];
 
                 $sqlStatement_2 = 'SELECT * FROM sub_daily_details where sub_id = :sub_id';
 

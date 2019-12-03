@@ -36,6 +36,23 @@
                 $responseObj->data->sub_description = $sub['sub_description'];
                 $responseObj->data->price = $sub['price'];
 
+                $sqlStatement = 'SELECT AVG(ratings) AS ratings FROM reviews WHERE sub_id = :sub_id';
+                $sql = $db->prepare($sqlStatement);
+                $sql->bindValue(':sub_id', $subId);
+                $sql->execute();
+    
+                $sub_rating = $sql->fetch(PDO::FETCH_ASSOC);
+                $responseObj->data->ratings = round($sub_rating['ratings'], 2);
+
+                $sqlStatement = 'SELECT COUNT(review_id) AS review_count FROM reviews WHERE sub_id = :sub_id';
+                $sql = $db->prepare($sqlStatement);
+                $sql->bindValue(':sub_id', $subId);
+                $sql->execute();
+    
+                $sub_count = $sql->fetch(PDO::FETCH_ASSOC);
+                $responseObj->data->review_count = $sub_count['review_count'];
+
+
                 $sqlStatement_2 = 'SELECT * FROM sub_daily_details where sub_id = :sub_id';
 
                 $sql = $db->prepare($sqlStatement_2);
@@ -70,6 +87,29 @@
                     array_push($responseObj->data->images, $img);
                 }
 
+                $sqlStatement = 'SELECT * FROM reviews AS r JOIN user_details AS u ON r.user_id = u.id where r.sub_id = :sub_id';
+                $sql = $db->prepare($sqlStatement);
+                $sql->bindValue(':sub_id', $sub['sub_id']);
+                $sql->execute();
+        
+                $reviews = $sql->fetchAll();
+                $responseObj->data->reviews = array();
+                foreach($reviews as $review){
+                  $success = 1;
+                  $rv = new stdClass();
+                  $rv->user_id = $review['user_id'];
+                  $rv->sub_id = $review['sub_id'];
+                  $rv->review_id = $review['review_id'];
+                  $rv->ratings = $review['ratings'];
+                  $rv->date_of_rating = $review['date_of_rating'];
+                  $rv->comments = $review['comments'];
+                  $rv->first_name = $review['first_name'];
+                  $rv->last_name = $review['last_name'];
+                  $rv->email_id = $review['email_id'];
+                  $rv->user_img_url = $review['user_img_url'];
+                  array_push($responseObj->data->reviews, $rv);
+                }
+        
             }
             
 
